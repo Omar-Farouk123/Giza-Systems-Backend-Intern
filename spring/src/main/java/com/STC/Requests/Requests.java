@@ -1,23 +1,29 @@
 package com.STC.Requests;
 
+import com.STC.Employee.Employee;
+import com.STC.Manager.Manager;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
-import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 public class Requests {
     @Id
     private int id;
-    private int user_Id;
+    @OneToOne
+    private Employee employee;
     private String start_date;
     private String end_date;
     private String req_date;
     private String status;
-    private int manager_id;
 
     public Requests() {
 
+    }
+
+    public Requests(int j, Optional<Employee> byId, String startDate, String endDate, String reqDate, String app) {
     }
 
     public int getId() {
@@ -28,12 +34,12 @@ public class Requests {
         this.id = id;
     }
 
-    public int getUser_Id() {
-        return user_Id;
+    public Employee getUser_Id() {
+        return employee;
     }
 
-    public void setUser_Id(int user_Id) {
-        this.user_Id = user_Id;
+    public void setEmployee(int employee_id) {
+        this.employee = employee;
     }
 
     public String getStart_date() {
@@ -68,35 +74,16 @@ public class Requests {
         this.status = status;
     }
 
-    public int getManager_id() {
-        return manager_id;
-    }
 
-    public void setManager_id(int manager_id) {
-        this.manager_id = manager_id;
-    }
 
-    public Requests(int id, int user_Id, String start_date, String end_date, String req_date, String status, int manager_id) {
+    public Requests(int id, Employee employee, String start_date, String end_date, String req_date, String status) {
         this.id = id;
-        this.user_Id = user_Id;
+        this.employee = employee;
         this.start_date = start_date;
         this.end_date = end_date;
         this.req_date = req_date;
         this.status = status;
-        this.manager_id = manager_id;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Requests requests = (Requests) o;
-        return id == requests.id && user_Id == requests.user_Id && manager_id == requests.manager_id && Objects.equals(start_date, requests.start_date) && Objects.equals(end_date, requests.end_date) && Objects.equals(req_date, requests.req_date) && Objects.equals(status, requests.status);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user_Id, start_date, end_date, req_date, status, manager_id);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.STC;
 
 import com.STC.Employee.EmployeeServices;
+import com.STC.Requests.RequestService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +14,11 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
+
     @Bean
-    public CommandLineRunner run(EmployeeServices myService) {
+    public CommandLineRunner run(RequestService myService) {
         return args -> {
-            myService.populateEmployee();
+            myService.populateRequests();
         };
     }
 }
