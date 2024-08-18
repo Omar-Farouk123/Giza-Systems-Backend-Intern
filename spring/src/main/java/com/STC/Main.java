@@ -15,10 +15,5 @@ public class Main {
     }
 
 
-    @Bean
-    public CommandLineRunner run(RequestService myService) {
-        return args -> {
-            myService.populateRequests();
-        };
-    }
+
 }
