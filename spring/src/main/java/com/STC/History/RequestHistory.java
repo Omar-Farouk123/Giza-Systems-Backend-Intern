@@ -1,16 +1,15 @@
-package com.STC.Requests;
+package com.STC.History;
 
 import com.STC.Employee.Employee;
 import com.STC.Manager.Manager;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
 
 import java.util.Optional;
 
 @Entity
-public class Requests {
+public class RequestHistory {
     @Id
     private int id;
     @OneToOne
@@ -20,11 +19,11 @@ public class Requests {
     private String req_date;
     private String status;
 
-    public Requests() {
+    public RequestHistory() {
 
     }
 
-    public Requests(int j, Optional<Employee> byId, String startDate, String endDate, String reqDate, String app) {
+    public RequestHistory(int j, Optional<Employee> byId, String startDate, String endDate, String reqDate, String app) {
     }
 
     public int getId() {
@@ -77,7 +76,7 @@ public class Requests {
 
 
 
-    public Requests(int id, Employee employee, String start_date, String end_date, String req_date, String status) {
+    public RequestHistory(int id, Employee employee, String start_date, String end_date, String req_date, String status) {
         this.id = id;
         this.employee = employee;
         this.start_date = start_date;

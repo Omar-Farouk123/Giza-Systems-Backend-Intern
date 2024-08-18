@@ -1,4 +1,4 @@
-package com.STC.Services.Signin;
+package com.STC.Signin;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -19,7 +19,7 @@ public class SignIn {
             String password) {}
     @PostMapping
     public ResponseEntity<Void> signin(@Valid @RequestBody SigninRequest request){
-        UserService.signup(request);
+//        UserService.signin(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

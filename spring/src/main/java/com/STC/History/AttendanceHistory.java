@@ -1,27 +1,24 @@
-package com.STC.Attendences;
+package com.STC.History;
 
-import com.STC.Employee.Employee;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 
 @Entity
-public class Attendances {
+public class AttendanceHistory {
     @Id
-   private int id;
-    @OneToOne
-    private Employee employee;
-   private String date;
-   private String checkIn_time;
-   private String checkOut_time;
-   private String status;
+    private int id;
+    private int emp_id;
+    private String date;
+    private String checkIn_time;
+    private String checkOut_time;
+    private String status;
 
-    public Attendances() {
+    public AttendanceHistory() {
     }
 
-    public Attendances(int id, Employee employee, String date, String checkIn_time, String checkOut_time, String status) {
+    public AttendanceHistory(int id, int emp_id, String date, String checkIn_time, String checkOut_time, String status) {
         this.id = id;
-        this.employee = employee;
+        this.emp_id = emp_id;
         this.date = date;
         this.checkIn_time = checkIn_time;
         this.checkOut_time = checkOut_time;
@@ -36,12 +33,12 @@ public class Attendances {
         this.id = id;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public int getUser_id() {
+        return emp_id;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setUser_id(int user_id) {
+        this.emp_id = user_id;
     }
 
     public String getDate() {
