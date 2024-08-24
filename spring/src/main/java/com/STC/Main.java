@@ -15,13 +15,5 @@ public class Main {
         SpringApplication.run(Main.class, args);
     }
 
-@Bean
-    public CommandLineRunner init(RequestService employees) {
-        return args ->{
-            employees.updateRequests();
-        };
-}
-
-
 
 }
