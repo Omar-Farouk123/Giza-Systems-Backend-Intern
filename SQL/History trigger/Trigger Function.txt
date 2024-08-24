@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION log_attendance_update()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Insert a new record into attendance_history with old values
+    INSERT INTO attendance_history (attendance_id, student_id, date, old_status)
+    VALUES (OLD.id, OLD.student_id, OLD.date, OLD.status);
+    
+    -- Return the new row
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;

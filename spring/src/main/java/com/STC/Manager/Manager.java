@@ -18,7 +18,10 @@ public class Manager {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_id_sequence")
+    @SequenceGenerator(name = "my_id_sequence", sequenceName = "my_id_sequence", allocationSize = 1)
     private int id;
+    @Column(nullable = false,unique = true)
     private String username;
     private String password;
 

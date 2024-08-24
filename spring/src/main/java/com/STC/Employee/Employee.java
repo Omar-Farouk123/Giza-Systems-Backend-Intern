@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Entity
 public class Employee {
     @Id
+
     private int id;
     private String username;
     private String password;

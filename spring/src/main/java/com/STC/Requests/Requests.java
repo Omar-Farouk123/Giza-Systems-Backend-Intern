@@ -2,16 +2,15 @@ package com.STC.Requests;
 
 import com.STC.Employee.Employee;
 import com.STC.Manager.Manager;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 
 import java.util.Optional;
 
 @Entity
 public class Requests {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_id_sequence")
+    @SequenceGenerator(name = "my_id_sequence", sequenceName = "my_id_sequence", allocationSize = 1)
     private int id;
     @OneToOne
     private Employee employee;

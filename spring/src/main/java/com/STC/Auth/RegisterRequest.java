@@ -12,5 +12,7 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
     String username;
     String password;
+    String department;
     String role;
+    int manager_id;
 }

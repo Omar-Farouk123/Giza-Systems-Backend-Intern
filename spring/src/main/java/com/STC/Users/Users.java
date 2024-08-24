@@ -1,7 +1,6 @@
 package com.STC.Users;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,14 +14,46 @@ import java.util.List;
 public class Users implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_id_sequence")
+    @SequenceGenerator(name = "my_id_sequence", sequenceName = "my_id_sequence", allocationSize = 1)
+    private int id;
+    @Column(nullable = false,unique = true)
     private String username;
     private String password;
     private String role;
+    private String department;
+    private int manager_id;
 
-    public Users(String username, String password, String role) {
+    public int getManager_id() {
+        return manager_id;
+    }
+
+    public void setManager_id(int manager_id) {
+        this.manager_id = manager_id;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Users(String username, String password, String role,String department,int manager_id) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.department=department;
+        this.manager_id=manager_id;
     }
 
     public Users() {

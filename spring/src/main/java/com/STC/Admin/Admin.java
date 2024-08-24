@@ -1,14 +1,15 @@
 package com.STC.Admin;
 
 import com.STC.Manager.Manager;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 @Entity
 public class Admin {
     @Id
+
     private int id;
+    @Column(nullable = false,unique = true)
     private String username;
     private String password;
 

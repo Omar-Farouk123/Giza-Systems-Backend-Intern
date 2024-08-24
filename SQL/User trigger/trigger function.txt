@@ -1,0 +1,17 @@
+CREATE OR REPLACE FUNCTION handle_user_insert()
+RETURNS TRIGGER AS $$
+
+BEGIN
+    IF NEW.role = 'employee' THEN
+        INSERT INTO employee (id, department, password, username,manager_id) 
+        VALUES (NEW.id, NEW.department, NEW.password, NEW.username,NEW.manager_id);
+    ELSIF NEW.role = 'admin' THEN
+        INSERT INTO admin (id, username, password) 
+        VALUES (NEW.id,  NEW.username, NEW.password);
+    ELSIF NEW.role = 'manager' THEN
+        INSERT INTO manager (id, department, password, username) 
+        VALUES (NEW.id, NEW.department, NEW.password, NEW.username);
+    END IF;
+    RETURN NEW;
+
+$$ LANGUAGE plpgsql;

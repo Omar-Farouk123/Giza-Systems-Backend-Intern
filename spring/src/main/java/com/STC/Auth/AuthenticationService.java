@@ -29,7 +29,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
-        Users user=new Users(request.getUsername(), passwordEncoder.encode(request.getPassword()),request.getRole());
+        Users user=new Users(request.getUsername(), passwordEncoder.encode(request.getPassword()),request.getRole(),request.getDepartment(),request.getManager_id());
 //        var user=User.builder()
 //                .username(request.getUsername())
 //                .password(passwordEncoder.encode(request.getPassword()),

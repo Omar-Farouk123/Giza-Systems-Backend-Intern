@@ -1,12 +1,14 @@
 package com.STC.History;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class AttendanceHistory {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_id_sequence")
+    @SequenceGenerator(name = "my_id_sequence", sequenceName = "my_id_sequence", allocationSize = 1)
     private int id;
+    private int attendence_id;
     private int emp_id;
     private String date;
     private String checkIn_time;
