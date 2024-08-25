@@ -1,15 +1,15 @@
 package com.STC.Attendences;
 
 import com.STC.Employee.Employee;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Attendances {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_id_sequence")
+    @SequenceGenerator(name = "my_id_sequence", sequenceName = "my_id_sequence", allocationSize = 1)
    private int id;
-    @OneToOne
+    @ManyToOne
     private Employee employee;
    private String date;
    private String checkIn_time;
@@ -19,8 +19,7 @@ public class Attendances {
     public Attendances() {
     }
 
-    public Attendances(int id, Employee employee, String date, String checkIn_time, String checkOut_time, String status) {
-        this.id = id;
+    public Attendances( Employee employee, String date, String checkIn_time, String checkOut_time, String status) {
         this.employee = employee;
         this.date = date;
         this.checkIn_time = checkIn_time;

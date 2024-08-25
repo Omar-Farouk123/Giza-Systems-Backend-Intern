@@ -17,9 +17,12 @@ public class EmployeeController {
     private final iEmployeeRepo employeeRepo;
     @PostMapping
     public String saveAttendence(@RequestBody AttendenceRequest request){
-        Attendances attendance=new Attendances(1,employeeRepo.findById(request.employee_id)
-                .orElseThrow()
-                , request.date, request.check_in, request.check_out, request.status);
+        Attendances attendance=new Attendances();
+        attendance.setEmployee(employeeRepo.getReferenceById(request.employee_id));
+        attendance.setCheckIn_time(request.check_in);
+        attendance.setCheckOut_time(request.check_out);
+        attendance.setStatus(request.status);
+        attendance.setDate(request.date);
         attendencesRepo.save(attendance);
         return "Done";
 
