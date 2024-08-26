@@ -1,5 +1,6 @@
 package com.STC.Security;
 
+import com.STC.Exceptions.ApiRequestException;
 import com.STC.Users.Users;
 import com.STC.Users.iUsersRepo;
 import jakarta.servlet.FilterChain;
@@ -33,6 +34,7 @@ public class JWTAuth extends OncePerRequestFilter {
             return;
         }
         jwtToken=authHeader.substring(7);
+            jwtService.validateToken(jwtToken);
         username=jwtService.extractUsername(jwtToken);
         if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             Users user=usersRepo.findByUsername(username)

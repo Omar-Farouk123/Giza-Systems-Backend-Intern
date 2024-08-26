@@ -24,11 +24,13 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-
+        if(usersRepo.findByUsername(request.getUsername()).isEmpty()){
+            throw new ApiRequestException("Username or Password is incorrect");
+        }
         Users user=usersRepo.findByUsername(request.getUsername())
                 .orElseThrow();
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword()) || usersRepo.findByUsername(request.getUsername()).isEmpty()){
-            throw new ApiRequestException("Wrong username or password");
+            throw new ApiRequestException("Username or Password is incorrect");
         }
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
 
