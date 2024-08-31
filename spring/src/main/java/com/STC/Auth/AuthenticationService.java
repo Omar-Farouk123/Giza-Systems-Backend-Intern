@@ -5,6 +5,7 @@ import com.STC.Security.JWTService;
 import com.STC.Users.Users;
 import com.STC.Users.iUsersRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +23,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         if(usersRepo.findByUsername(request.getUsername()).isEmpty()){
@@ -47,7 +49,7 @@ public class AuthenticationService {
         if(!Objects.equals(request.getRole(), "admin") && !Objects.equals(request.getRole(), "manager") && !Objects.equals(request.getRole(), "employee")) {
             throw new ApiRequestException("Invalid role");
         }
-        Users user=new Users(request.getUsername(), passwordEncoder.encode(request.getPassword()),request.getRole(),request.getDepartment(),request.getManager_id());
+        Users user=new Users(request.getUsername(), request.getMail(), passwordEncoder.encode(request.getPassword()),request.getRole(),request.getDepartment(),request.getManager_id());
 //        var user=User.builder()
 //                .username(request.getUsername())
 //                .password(passwordEncoder.encode(request.getPassword()),
@@ -57,6 +59,14 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .Token(jwtToken)
                 .build();
+    }
+
+    public String forgotPassword(String email) {
+        Users user = usersRepo.findByMail(email)
+                .orElseThrow();
+        String token = jwtService.generateToken(user);
+        emailService.sendPasswordResetEmail(user.getMail(), token);
+        return"Password reset email sent";
     }
 }
 

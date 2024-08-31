@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 @Entity
 public class Attendances {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_id_sequence")
-    @SequenceGenerator(name = "my_id_sequence", sequenceName = "my_id_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_attendence_sequence")
+    @SequenceGenerator(name = "my_attendence_sequence", sequenceName = "my_attendence_sequence", allocationSize = 1)
    private int id;
     @ManyToOne
     private Employee employee;

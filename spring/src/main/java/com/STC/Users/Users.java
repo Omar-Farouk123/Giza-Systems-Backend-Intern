@@ -19,10 +19,28 @@ public class Users implements UserDetails {
     private int id;
     @Column(nullable = false,unique = true)
     private String username;
+    private String mail;
     private String password;
     private String role;
     private String department;
     private int manager_id;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Users( String username, String mail, String password, String role, String department, int manager_id) {
+        this.username = username;
+        this.mail = mail;
+        this.password = password;
+        this.role = role;
+        this.department = department;
+        this.manager_id = manager_id;
+    }
 
     public int getManager_id() {
         return manager_id;

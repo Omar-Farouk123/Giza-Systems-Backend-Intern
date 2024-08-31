@@ -11,7 +11,23 @@ public class Admin {
     private int id;
     @Column(nullable = false,unique = true)
     private String username;
+    private String mail;
     private String password;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Admin(int id, String username, String mail, String password) {
+        this.id = id;
+        this.username = username;
+        this.mail = mail;
+        this.password = password;
+    }
 
     public Admin(int id, String username, String password) {
         this.id = id;

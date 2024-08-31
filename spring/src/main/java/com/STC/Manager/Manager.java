@@ -23,9 +23,27 @@ public class Manager {
     private int id;
     @Column(nullable = false,unique = true)
     private String username;
+    private String mail;
     private String password;
 
     private String department;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Manager(int id, String username, String mail, String password, String department, List<Employee> employees) {
+        this.id = id;
+        this.username = username;
+        this.mail = mail;
+        this.password = password;
+        this.department = department;
+        this.employees = employees;
+    }
 
     public Manager() {
 
