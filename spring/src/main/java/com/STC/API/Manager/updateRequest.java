@@ -1,4 +1,4 @@
-package com.STC.API.Employee.AttendenceVacc;
+package com.STC.API.Manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VaccationRequest {
-    private int employee_id;
-    private String start_date;
-    private String end_date;
-    private String req_date;
+public class updateRequest {
+    private int request_id;
     private String status;
+
 }

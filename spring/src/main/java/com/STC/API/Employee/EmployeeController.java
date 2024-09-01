@@ -1,7 +1,8 @@
-package com.STC.API.Employee.AttendenceVacc;
+package com.STC.API.Employee;
 
 import com.STC.Attendences.Attendances;
 import com.STC.Attendences.iAttendencesRepo;
+import com.STC.Employee.Employee;
 import com.STC.Employee.iEmployeeRepo;
 import com.STC.Requests.Requests;
 import com.STC.Requests.iRequestRepo;
@@ -27,17 +28,13 @@ public class EmployeeController {
         attendance.setStatus(request.status);
         attendance.setDate(request.date);
         attendencesRepo.save(attendance);
-        return "Done";
+        return "Attendence saved";
     }
     @PostMapping("/requestVacation")
     public String requestVacation(@RequestBody VaccationRequest request){
-        Requests vac=new Requests();
-        vac.setEmployee(request.getEmployee_id());
-        vac.setStatus(request.getStatus());
-        vac.setStart_date(request.getStart_date());
-        vac.setEnd_date(request.getEnd_date());
-        vac.setReq_date(request.getReq_date());
+        Employee employee=employeeRepo.getReferenceById(request.getEmployee_id());
+        Requests vac=new Requests(employee,request.getStart_date(),request.getEnd_date(),request.getReq_date(),request.getStatus());
         requestRepo.save(vac);
-        return "Done";
+        return "Request saved";
     }
 }

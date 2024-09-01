@@ -1,4 +1,4 @@
-package com.STC.API.Employee.AttendenceVacc;
+package com.STC.API.Employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

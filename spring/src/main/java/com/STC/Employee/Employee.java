@@ -1,6 +1,8 @@
 package com.STC.Employee;
 
 import com.STC.Manager.Manager;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,9 +17,21 @@ public class Employee {
     private String department;
     @ManyToOne()
     @JoinColumn(name = "manager_id")
+    @JsonIgnoreProperties({"username","password","department","employees","mail"})
     private Manager manager;
 
-    public Employee(Integer id, String username, String password,String department, Manager manager) {
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", department='" + department + '\'' +
+                ", manager=" + manager.getId() +
+                '}';
+    }
+
+    public Employee(Integer id, String username, String password, String department, Manager manager) {
         this.id = id;
         this.username = username;
         this.password = password;

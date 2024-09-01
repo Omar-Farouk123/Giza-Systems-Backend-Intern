@@ -1,6 +1,7 @@
 package com.STC.Manager;
 
 import com.STC.Employee.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class Manager {
     private String password;
 
     private String department;
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="manager")
+    @JsonIgnoreProperties({"username","password","department","mail"})
+    private List<Employee> employees;
 
     public String getMail() {
         return mail;
@@ -49,8 +53,7 @@ public class Manager {
 
     }
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="manager")
-    private List<Employee> employees;
+
 
     public int getId() {
         return id;

@@ -20,17 +20,26 @@ public class ManagerController {
     private final iEmployeeRepo employeeRepo;
     private final iManagerRepo managerRepo;
 @GetMapping("/viewRequests")
-public ResponseEntity<List<Requests>> viewRequests(@RequestParam int manager_id){
+public List<Requests> viewRequests(@RequestParam int manager_id){
     List<Requests> requests=new ArrayList<Requests>();
-    List<Employee> employees=new ArrayList<Employee>();
-    for(int i=0;i<employees.size();i++){
-        if(requestRepo.findAllByEmployee(employees.get(i)) != null){
-           for (int j=0;j<requestRepo.findAllByEmployee(employees.get(i)).size();j++){
-               requests.add(requestRepo.findAllByEmployee(employees.get(i)).get(j));
-           }
-        }
+    List<Employee> employees=employeeRepo.findByManagerId(manager_id);
+
+    for (Employee employee : employees) {
+        requests.addAll(requestRepo.findAllByEmployee(employee));
     }
-    return ResponseEntity.ok(requests);
+    return requests;
+    }
+@PutMapping("updateRequest")
+public String updateRequest(@RequestBody updateRequest request){
+   Requests r= requestRepo.getReferenceById(request.getRequest_id());
+   r.setStatus(request.getStatus());
+   requestRepo.save(r);
+    return "Request Updated Successfully";
+}
+
+@GetMapping("viewEmployees")
+    public List<Employee> viewEmployees(@RequestParam int manager_id){
+    return employeeRepo.findByManagerId(manager_id);
 }
 
 }

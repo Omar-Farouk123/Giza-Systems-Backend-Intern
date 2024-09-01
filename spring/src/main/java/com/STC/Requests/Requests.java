@@ -2,29 +2,27 @@ package com.STC.Requests;
 
 import com.STC.Employee.Employee;
 import com.STC.Manager.Manager;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.Optional;
-
 @Entity
 public class Requests {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_requests_sequence")
     @SequenceGenerator(name = "my_requests_sequence", sequenceName = "my_requests_sequence", allocationSize = 1)
     private int id;
-    @OneToOne
+    @ManyToOne
+    @JsonIgnoreProperties({"username","password","department","mail"})
     private Employee employee;
     private String start_date;
     private String end_date;
     private String req_date;
     private String status;
-
-    public Requests() {
-
-    }
-
-    public Requests(int j, Optional<Employee> byId, String startDate, String endDate, String reqDate, String app) {
-    }
 
     public int getId() {
         return id;
@@ -34,11 +32,11 @@ public class Requests {
         this.id = id;
     }
 
-    public Employee getUser_Id() {
+    public Employee getEmployee() {
         return employee;
     }
 
-    public void setEmployee(int employee_id) {
+    public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
@@ -74,16 +72,13 @@ public class Requests {
         this.status = status;
     }
 
-
-
-    public Requests(int id, Employee employee, String start_date, String end_date, String req_date, String status) {
-        this.id = id;
+    public Requests() {
+    }
+    public Requests(Employee employee, String start_date, String end_date, String req_date, String status) {
         this.employee = employee;
         this.start_date = start_date;
         this.end_date = end_date;
         this.req_date = req_date;
         this.status = status;
-
     }
-
 }
