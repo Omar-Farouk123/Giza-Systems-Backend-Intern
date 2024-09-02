@@ -15,6 +15,24 @@ public class Attendances {
    private String checkIn_time;
    private String checkOut_time;
    private String status;
+   private String type;
+
+    public Attendances(Employee employee, String date, String checkIn_time, String checkOut_time, String status, String type) {
+        this.employee = employee;
+        this.date = date;
+        this.checkIn_time = checkIn_time;
+        this.checkOut_time = checkOut_time;
+        this.status = status;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Attendances() {
     }
