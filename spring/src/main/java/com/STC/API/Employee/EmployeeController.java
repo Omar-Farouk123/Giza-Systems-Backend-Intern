@@ -17,33 +17,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
-    private final iAttendencesRepo attendencesRepo;
-    private final iEmployeeRepo employeeRepo;
-    private final iUsersRepo usersRepo;
-    private final iRequestRepo requestRepo;
-    private final JWTService jwtService;
+  private final EmployeeService employeeService;
     @PostMapping("/saveAttendence")
     public String saveAttendence(@RequestBody AttendenceRequest request){
-        Attendances attendance=new Attendances();
-        attendance.setEmployee(employeeRepo.getReferenceById(request.employee_id));
-        attendance.setCheckIn_time(request.check_in);
-        attendance.setCheckOut_time(request.check_out);
-        attendance.setStatus(request.status);
-        attendance.setDate(request.date);
-        attendencesRepo.save(attendance);
-        return "Attendence saved";
+        return employeeService.saveAttendence(request);
     }
     @PostMapping("/requestVacation")
     public String requestVacation(@RequestBody VaccationRequest request){
-        Employee employee=employeeRepo.getReferenceById(request.getEmployee_id());
-        Requests vac=new Requests(employee,request.getStart_date(),request.getEnd_date(),request.getReq_date(),request.getStatus());
-        requestRepo.save(vac);
-        return "Request saved";
-    }
-    @GetMapping("viewDetails")
-    public Users getEmployee(@RequestParam String token){
-        String username= jwtService.extractUsername(token);
-        Users users=usersRepo.findByusername(username);
-        return users;
+       return employeeService.requestVacation(request);
     }
 }

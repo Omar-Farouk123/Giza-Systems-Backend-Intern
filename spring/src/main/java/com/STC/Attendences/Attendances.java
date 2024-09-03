@@ -37,13 +37,6 @@ public class Attendances {
     public Attendances() {
     }
 
-    public Attendances( Employee employee, String date, String checkIn_time, String checkOut_time, String status) {
-        this.employee = employee;
-        this.date = date;
-        this.checkIn_time = checkIn_time;
-        this.checkOut_time = checkOut_time;
-        this.status = status;
-    }
 
     public int getId() {
         return id;

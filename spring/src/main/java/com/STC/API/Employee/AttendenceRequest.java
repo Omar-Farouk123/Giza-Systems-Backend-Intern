@@ -15,4 +15,5 @@ public class AttendenceRequest {
     String date;
     String status;
     int employee_id;
+    String type;
 }

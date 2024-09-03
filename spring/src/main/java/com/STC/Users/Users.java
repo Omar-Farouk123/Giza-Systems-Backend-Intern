@@ -19,6 +19,7 @@ public class Users implements UserDetails {
     private int id;
     @Column(nullable = false,unique = true)
     private String username;
+    @Column(nullable = false,unique = true)
     private String mail;
     private String password;
     private String role;

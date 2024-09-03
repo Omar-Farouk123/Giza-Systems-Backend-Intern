@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Objects;
@@ -46,9 +47,14 @@ public class AuthenticationService {
         if(usersRepo.findByUsername(request.getUsername()).isPresent() ){
            throw new ApiRequestException("Username already in use");
         }
+        if(usersRepo.findByMail(request.getMail()).isPresent() ){
+            throw new ApiRequestException("Mail already in use");
+        }
+
         if(!Objects.equals(request.getRole(), "admin") && !Objects.equals(request.getRole(), "manager") && !Objects.equals(request.getRole(), "employee")) {
             throw new ApiRequestException("Invalid role");
         }
+
         Users user=new Users(request.getUsername(), request.getMail(), passwordEncoder.encode(request.getPassword()),request.getRole(),request.getDepartment(),request.getManager_id());
 //        var user=User.builder()
 //                .username(request.getUsername())
@@ -67,6 +73,14 @@ public class AuthenticationService {
         String token = jwtService.generateToken(user);
         emailService.sendPasswordResetEmail(user.getMail(), token);
         return"Password reset email sent";
+    }
+    public AuthenticationResponse refreshToken(String token){
+        String username= jwtService.extractUsername(token);
+        Users user= usersRepo.findByusername(username);
+        var jwtToken = jwtService.generateToken(user);
+        return AuthenticationResponse.builder()
+                .Token(jwtToken)
+                .build();
     }
 }
 
