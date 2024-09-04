@@ -16,15 +16,15 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse>Register(@RequestBody RegisterRequest request){
         return ResponseEntity.ok(authenticationService.register(request));
     }
-    @PostMapping(value = "/authentication", consumes = {MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<AuthenticationResponse>authentication(@RequestBody AuthenticationRequest request){
+    @PostMapping( "/authentication")
+    public ResponseEntity<AuthenticationFeedback>authentication(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {
     return ResponseEntity.ok(authenticationService.forgotPassword(email));
     }
-    @GetMapping("refreshToken")
+    @GetMapping("/refreshToken")
     public AuthenticationResponse refreshToken(@RequestParam String token){
        return authenticationService.refreshToken(token);
     }

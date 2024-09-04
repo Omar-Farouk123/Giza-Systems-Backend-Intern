@@ -26,7 +26,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationFeedback authenticate(AuthenticationRequest request) {
         if(usersRepo.findByUsername(request.getUsername()).isEmpty()){
             throw new ApiRequestException("Username or Password is incorrect");
         }
@@ -38,9 +38,10 @@ public class AuthenticationService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
 
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
+         AuthenticationResponse response=AuthenticationResponse.builder()
                 .Token(jwtToken)
                 .build();
+        return new AuthenticationFeedback(response,user);
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
@@ -75,6 +76,9 @@ public class AuthenticationService {
         return"Password reset email sent";
     }
     public AuthenticationResponse refreshToken(String token){
+        if(jwtService.isTokenExpired(token)){
+            throw new ApiRequestException("token is expired");
+        }
         String username= jwtService.extractUsername(token);
         Users user= usersRepo.findByusername(username);
         var jwtToken = jwtService.generateToken(user);

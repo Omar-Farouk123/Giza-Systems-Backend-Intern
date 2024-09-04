@@ -16,7 +16,7 @@ public class UserController {
     private final iUsersRepo usersRepo;
     private final JWTService jwtService;
 
-    @GetMapping("viewDetails")
+    @GetMapping("/viewDetails")
     public Users getEmployee(@RequestParam String token){
         String username= jwtService.extractUsername(token);
         return usersRepo.findByusername(username);
