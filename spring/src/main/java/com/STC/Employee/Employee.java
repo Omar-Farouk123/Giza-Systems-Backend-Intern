@@ -19,6 +19,8 @@ public class Employee {
     @JoinColumn(name = "manager_id")
     @JsonIgnoreProperties({"username","password","department","employees","mail"})
     private Manager manager;
+    @Column(unique = true)
+    private String mail;
 
     @Override
     public String toString() {

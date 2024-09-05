@@ -1,6 +1,7 @@
 package com.STC.Auth;
 
 import com.STC.Exceptions.ApiRequestException;
+import com.STC.Manager.iManagerRepo;
 import com.STC.Security.JWTService;
 import com.STC.Users.Users;
 import com.STC.Users.iUsersRepo;
@@ -21,6 +22,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final iUsersRepo usersRepo;
+    private final iManagerRepo managerRepo;
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -54,6 +56,9 @@ public class AuthenticationService {
 
         if(!Objects.equals(request.getRole(), "admin") && !Objects.equals(request.getRole(), "manager") && !Objects.equals(request.getRole(), "employee")) {
             throw new ApiRequestException("Invalid role");
+        }
+        if(managerRepo.findById(request.getManager_id()).isEmpty()){
+            throw new ApiRequestException("Manager Id not found");
         }
 
         Users user=new Users(request.getUsername(), request.getMail(), passwordEncoder.encode(request.getPassword()),request.getRole(),request.getDepartment(),request.getManager_id());
