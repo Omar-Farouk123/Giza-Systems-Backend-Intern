@@ -17,12 +17,12 @@ public class ManagerController {
         return managerService.viewRequests(manager_id);
     }
 
-    @PutMapping("updateRequest")
+    @PutMapping("/updateRequest")
     public String updateRequest(@RequestBody updateRequest request) {
         return managerService.updateRequest(request);
     }
 
-    @GetMapping("viewEmployees")
+    @GetMapping("/viewEmployees")
     public List<Employee> viewEmployees(@RequestParam int manager_id) {
         return managerService.viewEmployees(manager_id);
 

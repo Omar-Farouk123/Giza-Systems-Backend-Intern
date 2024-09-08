@@ -24,6 +24,7 @@ public class EmployeeService {
     private final JWTService jwtService;
 
     public String saveAttendence(AttendenceRequest request){
+        System.out.println("saveattendence");
         Attendances attendance=new Attendances();
         System.out.print("test "+request.getEmployee_id());
         if(usersRepo.findById(request.getEmployee_id()).isEmpty()){

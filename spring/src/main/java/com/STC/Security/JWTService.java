@@ -23,7 +23,10 @@ public class JWTService {
     }
 
     public <T> T extractClaim(String jwtToken, Function<Claims, T> claimsResolver) {
+        System.out.println("extract username");
         final Claims claims = extractAllClaims(jwtToken);
+        Object x=claimsResolver.apply(claims);
+        System.out.println("extract usenrame :: "+x);
         return claimsResolver.apply(claims);
     }
 

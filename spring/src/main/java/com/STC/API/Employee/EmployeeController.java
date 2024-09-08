@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class EmployeeController {
   private final EmployeeService employeeService;
-    @PostMapping("/saveAttendence")
+    @PostMapping("/saveAttendance")
     public String saveAttendence(@RequestBody AttendenceRequest request){
         return employeeService.saveAttendence(request);
     }

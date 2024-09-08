@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AttendenceRequest {
+public class
+AttendenceRequest {
     String check_in;
     String check_out;
     String date;
