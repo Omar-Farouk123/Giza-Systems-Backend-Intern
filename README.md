@@ -1,4 +1,4 @@
-# STC Spring Boot Project
+# Giza Systems HR System Spring Boot Project
 
 ## Project Hierarchy
 
